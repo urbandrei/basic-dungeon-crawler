@@ -1,0 +1,54 @@
+<DOCTYPE! html>
+<html>
+<head>
+<style>
+seg{
+	position:fixed;
+	height:20px;
+	width:20px;
+}
+</style>
+<script>
+map = []
+for(i=0;i<20;i++){
+	for(j=0;j<20;j++){
+		s = document.createElement("seg")
+		s.style.left=20*i+"px"
+		s.style.bottom=20*j+"px"
+		if((i+j)%2==0) {
+			s.style.backgroundColor = "rgb(100,100,100)"
+		} else {
+			s.style.backgroundColor = "rgb(150,150,150)"
+		}
+		s.onclick = function() {
+			x = this.style.left.slice(0,-2)/20
+			y = this.style.bottom.slice(0,-2)/20
+			i = -1
+			for(k = 0;k<map.length;k++) {
+				if(map[k][0]==x&&map[k][1]==y) {
+					i=k
+				}
+			}
+			if(i == -1) {
+				this.style.backgroundColor ="rgb(0,0,0)"
+				map.push([x,y])
+			} else {
+				console.log("this")
+				map.splice(i,1)
+				if((x+y)%2==0) {
+					this.style.backgroundColor = "rgb(50,50,50)"
+				} else {
+					this.style.backgroundColor = "rgb(100,100,100)"
+				}
+			}
+			document.getElementById("output").innerHTML = JSON.stringify(map)
+		}
+		document.body.appendChild(s)
+	}
+}
+</script>
+</head>
+<body>
+<p id="output">output</p>
+</body>
+</html>
